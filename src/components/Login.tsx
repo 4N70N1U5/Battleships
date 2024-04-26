@@ -47,15 +47,12 @@ const Link = styled.Text`
 
 export interface ILogin {
     onSubmit: (email: string, password: string) => void;
+    goToRegister: () => void;
 }
 
-const Login: React.FC<ILogin> = ({ onSubmit }) => {
+const Login: React.FC<ILogin> = ({ onSubmit, goToRegister }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const goToRegister = () => {
-        console.log("Go to register");
-    }
 
     const handleSubmit = () => onSubmit(email, password);
 
