@@ -36,9 +36,15 @@ const ButtonText = styled.Text`
     text-align: center;
 `
 
-const Register = () => {
+export interface IRegister {
+    onSubmit: (email: string, password: string) => void;
+}
+
+const Register: React.FC<IRegister> = ({ onSubmit }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const handleSubmit = () => onSubmit(email, password);
 
     return (
         <Container>
@@ -46,7 +52,7 @@ const Register = () => {
                 <Input onChangeText={setEmail} placeholder="Email" keyboardType="email-address" />
                 <Input onChangeText={setPassword} placeholder="Password" secureTextEntry />
                 <Button>
-                    <ButtonText>Sign up</ButtonText>
+                    <ButtonText onPress={handleSubmit}>Sign up</ButtonText>
                 </Button>
             </InputContainer>
         </Container>

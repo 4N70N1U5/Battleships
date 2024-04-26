@@ -45,7 +45,11 @@ const Link = styled.Text`
     text-decoration: underline;
 `
 
-const Login = () => {
+export interface ILogin {
+    onSubmit: (email: string, password: string) => void;
+}
+
+const Login: React.FC<ILogin> = ({ onSubmit }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -53,13 +57,15 @@ const Login = () => {
         console.log("Go to register");
     }
 
+    const handleSubmit = () => onSubmit(email, password);
+
     return (
         <Container>
             <InputContainer>
                 <Input onChangeText={setEmail} placeholder="Email" keyboardType="email-address" />
                 <Input onChangeText={setPassword} placeholder="Password" secureTextEntry />
                 <Button>
-                    <ButtonText>Sign in</ButtonText>
+                    <ButtonText onPress={handleSubmit}>Sign in</ButtonText>
                 </Button>
             </InputContainer>
             <BottomText>Don't have an account? <Link onPress={goToRegister}>Sign up</Link> now!</BottomText>
