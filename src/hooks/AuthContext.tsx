@@ -21,11 +21,11 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
         try {
             const response = await login(email, password);
-            console.log("Login token: ", response);
+            console.log("Login token: " + response);
             setToken(response);
         }
         catch (error) {
-            console.log("Login error: ", error);
+            console.log("Login error: " + error);
         }
     }
 
@@ -34,11 +34,11 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
         try {
             const response = await register(email, password);
-            console.log("Register token: ", response);
+            console.log("Register token: " + response);
             setToken(response);
         }
         catch (error) {
-            console.log("Register error: ", error);
+            console.log("Register error: " + error);
         }
     }
 
