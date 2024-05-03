@@ -33,7 +33,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         console.log("Handle Register");
 
         try {
-            const response = await register(email, password);
+            await register(email, password);
+            const response = await login(email, password);
             console.log("Register token: " + response);
             setToken(response);
         }

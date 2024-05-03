@@ -1,5 +1,4 @@
-// const baseUrl = 'http://163.172.177.98:8081';
-const baseUrl = 'http://192.168.100.154:8080';
+const baseUrl = 'https://malamute-enabled-yak.ngrok-free.app';
 
 const baseHeaders = {
     "Content-Type": 'application/json',
@@ -23,8 +22,6 @@ export const register = async (email: string, password: string) => {
     const responseJson = await response.json();
 
     console.log("Register API call response: " + responseJson);
-
-    return responseJson.accessToken;
 }
 
 export const login = async (email: string, password: string): Promise<string> => {
