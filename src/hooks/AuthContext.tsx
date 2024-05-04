@@ -5,12 +5,14 @@ interface IAuthContext {
     token: string;
     login: (email: string, password: string) => Promise<void>;
     register: (email: string, password: string) => Promise<void>;
+    logout: () => void;
 }
 
 const AuthContext = createContext<IAuthContext>({
     token: "",
     login: async () => { },
-    register: async () => { }
+    register: async () => { },
+    logout: () => { }
 });
 
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -43,8 +45,13 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         }
     }
 
+    const handleLogout = () => {
+        console.log("Handle Logout");
+        setToken("");
+    }
+
     return (
-        <AuthContext.Provider value={{ token, login: handleLogin, register: handleRegister }}>
+        <AuthContext.Provider value={{ token, login: handleLogin, register: handleRegister, logout: handleLogout }}>
             {children}
         </AuthContext.Provider>
     )
