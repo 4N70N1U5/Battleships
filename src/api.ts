@@ -97,3 +97,20 @@ export const createGame = async (token: string) => {
 
     return responseJson;
 }
+
+export const joinGame = async (token: string, gameId: string) => {
+    console.log("Join game API call: " + baseUrl + "/game/join/" + gameId);
+    console.log("Join game token: " + token);
+
+    const response = await fetch(`${baseUrl}/game/join/${gameId}`, {
+        method: "POST",
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    const responseJson = await response.json();
+
+    return responseJson;
+}
