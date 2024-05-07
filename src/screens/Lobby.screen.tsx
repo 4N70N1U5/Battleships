@@ -1,8 +1,7 @@
-import { SafeAreaView, ScrollView, Text } from "react-native";
 import styled from "styled-components/native";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/AuthContext";
-import { getAllGames } from "../api";
+import { createGame, getAllGames, getUserDetails } from "../api";
 import GameItem from "../components/GameItem";
 
 const PageContainer = styled.SafeAreaView`
@@ -38,16 +37,44 @@ const GamesContainer = styled.ScrollView`
 const LobbyScreen = () => {
     const auth = useAuth();
 
+    const [id, setId] = useState("");
     const [games, setGames] = useState<any[]>([])
 
     useEffect(() => {
-        getAllGames(auth.token).then((response) => { setGames(response.games) })
+        getUserDetails(auth.token).then((response) => {
+            setId(response.user.id);
+        });
+
+        getAllGames(auth.token).then((response) => {
+            const userGames: any[] = []
+
+            response.games.forEach((element: any) => {
+                if (element.player1Id == id || element.player2Id == id)
+                    userGames.push(element)
+            });
+
+            setGames(userGames)
+        })
     }, []);
+
+    const handleCreateGame = async () => {
+        await createGame(auth.token)
+        getAllGames(auth.token).then((response) => {
+            const userGames: any[] = []
+
+            response.games.forEach((element: any) => {
+                if (element.player1Id == id || element.player2Id == id)
+                    userGames.push(element)
+            });
+
+            setGames(userGames)
+        })
+    }
 
     return (
         <PageContainer>
             <Container>
-                <Button>
+                <Button onPress={handleCreateGame}>
                     <ButtonText>New game</ButtonText>
                 </Button>
                 <GamesContainer>

@@ -80,3 +80,20 @@ export const getAllGames = async (token: string) => {
 
     return responseJson;
 }
+
+export const createGame = async (token: string) => {
+    console.log("Create game API call: " + baseUrl + "/game");
+    console.log("Create game token: " + token);
+
+    const response = await fetch(`${baseUrl}/game`, {
+        method: "POST",
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    const responseJson = await response.json();
+
+    return responseJson;
+}
