@@ -63,3 +63,20 @@ export const getUserDetails = async (token: string) => {
 
     return responseJson;
 }
+
+export const getAllGames = async (token: string) => {
+    console.log("Get all games API call: " + baseUrl + "/game");
+    console.log("Get all games token: " + token);
+
+    const response = await fetch(`${baseUrl}/game`, {
+        method: "GET",
+        headers: {
+            ...baseHeaders,
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    const responseJson = await response.json();
+
+    return responseJson;
+}
